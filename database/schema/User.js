@@ -2,27 +2,24 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
+const SALT_WORK_FACTOR = 10
 
 const userSchema = new Schema({
   UserId: ObjectId,
-  userName: {unique: true, type: String},
+  username: {unique: true, type: String},
   password: String,
   createAt: {type: Date, default: Date.now()},
   lastLoginAt: {type: Date, default: Date.now()}
+}, {
+  collection: 'users'
 })
 
 userSchema.pre('save', function (next) {
-  //let user = this
-  console.log(this)
-  bcrypt.genSalt(10, (err, salt) => {
+  bcrypt.hash(this.password, SALT_WORK_FACTOR, (err, hash) => {
     if (err) return next(err)
-    bcrypt.hash(this.password, salt, (err, hash) => {
-      if (err) return next(err)
-      this.password = hash
-      next()
-    })
-
-  })
+    this.password = hash
+    next()
+  });
 })
 mongoose.model('User', userSchema)
 
