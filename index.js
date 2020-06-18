@@ -1,5 +1,6 @@
 const Koa = require('koa')
 const Router = require('koa-router')
+const cors = require('koa2-cors')
 const mongoose = ('mongoose')
 const {connect, initSchemas} = require('./database/init')
 const user = require('./appApi/user')
@@ -22,6 +23,8 @@ const user = require('./appApi/user')
 
 const app = new Koa()
 const router = Router()
+
+app.use(cors())
 
 router.use('/user', user.routes())
 
