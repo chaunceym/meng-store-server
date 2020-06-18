@@ -78,12 +78,12 @@ router
       ctx.body = {code: 500, message: err}
     }
   })
-  .get('/getCategorySubList', async ctx => {
+  .post('/getCategorySubList', async ctx => {
     try {
-      const categoryID = 1
+      const {categoryId} = ctx.request.body
       const Category_sub = mongoose.model('Category_sub')
       const result = await Category_sub.find({
-        MALL_CATEGORY_ID: categoryID
+        MALL_CATEGORY_ID: categoryId
       }).exec()
       ctx.body = {code: 200, message: result}
     } catch (err) {
