@@ -33,4 +33,4 @@ const goodsSchema = new Schema({
   collection: 'goods'
 })
 
-mongoose.model('goods', goodsSchema)
+mongoose.model('Good', goodsSchema)
