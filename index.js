@@ -4,11 +4,13 @@ const cors = require('koa2-cors')
 const bodyParser = require('koa-bodyparser')
 const {connect, initSchemas} = require('./database/init')
 const user = require('./appApi/user')
+const goods = require('./appApi/goods')
 
 const app = new Koa()
 const router = Router()
 
 router.use('/user', user.routes())
+router.use('/goods', goods.routes())
 
 app.use(cors())
 app.use(bodyParser())

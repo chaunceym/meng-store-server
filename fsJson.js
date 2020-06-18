@@ -1,5 +1,5 @@
 const fs = require('fs')
-fs.readFile('.goods.json', 'utf8', (err, data) => {
+fs.readFile('./store-data/goods.json', 'utf8', (err, data) => {
   const newData = JSON.parse(data)
   let i = 0
   let pushData = []
@@ -12,7 +12,7 @@ fs.readFile('.goods.json', 'utf8', (err, data) => {
   })
   console.log(i)
   console.log(pushData)
-  fs.writeFile('./newGoods.json',JSON.stringify(pushData),err=>{
+  fs.writeFile('./store-data/newGoods.json',JSON.stringify(pushData),err=>{
     if(err) console.log('写文件失败')
     else console.log('写文件成功')
   })
