@@ -90,14 +90,18 @@ router
       ctx.body = {code: 500, message: err}
     }
   })
-  .get('/getGoodsListByCategorySubID', async ctx => {
+  .post('/getGoodsListByCategorySubId', async ctx => {
     try {
-      const categorySubID = '2c9f6c946016ea9b016016f79c8e0000'
+      const {categorySubId, page} = ctx.request.body
+      console.log(categorySubId)
+      console.log(page)
+      const size = 10
+      const start = (page - 1) * size
       const Good = mongoose.model('Good')
       const result = await Good.find({
-        SUB_ID: categorySubID
-      }).exec()
-      console.log(result)
+        SUB_ID: categorySubId
+      }).skip(start).limit(size).exec()
+      console.log(result.length)
       ctx.body = {code: 200, message: result}
     } catch (err) {
       ctx.body = {code: 500, message: err}
